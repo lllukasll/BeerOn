@@ -34,10 +34,18 @@ namespace BeerOn.API.Helpers
             CreateMap<GetBreweryDto, Brewery>();
 
             CreateMap<Brewery, SaveBreweryDto>();
-            CreateMap<SaveBreweryDto, Brewery>();
+            CreateMap<SaveBreweryDto, Brewery>()
+                .ForMember(g => g.Id, opt => opt.Ignore());
 
             CreateMap<BeerType, SaveBeerTypeDto>();
-            CreateMap<SaveBeerTypeDto, BeerType>();
+            CreateMap<SaveBeerTypeDto, BeerType>()
+                .ForMember(g => g.Id, opt => opt.Ignore());
+
+            CreateMap<Beer, SaveBeerDto>();
+            CreateMap<SaveBeerDto, Beer>();
+
+            CreateMap<Beer, GetBeerDto>();
+            CreateMap<GetBeerDto, Beer>();
 
         }
     }

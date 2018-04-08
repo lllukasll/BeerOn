@@ -50,5 +50,14 @@ namespace BeerOn.Services.Services
             }
             return true;
         }
+
+        public async Task<bool> UpdateBeerType(int id, BeerType beerType)
+        {
+            if (await _beerTypeRepository.UpdateAsyn(beerType, id) == null)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

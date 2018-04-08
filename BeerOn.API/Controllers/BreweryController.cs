@@ -59,10 +59,47 @@ namespace BeerOn.API.Controllers
             return Ok(breweryDto);
         }
 
-        //[HttpPut("{breweryId}")]
-        //public async Task<IActionResult> UpdateBrewery(int breweryId,[FromBody] SaveBreweryDto breweryDto)
-        //{
-            
-        //}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBrewery(int id)
+        {
+            var brewery = await _breweryService.GetBrewery(id);
+            if (brewery == null)
+            {
+                return NotFound();
+            }
+
+            if (!await _breweryService.RemoveBrewery(brewery))
+            {
+                return BadRequest("Wystąpił problem podczas usuwania typu piwa");
+            }
+
+            return Ok();
+
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateBrewery(int id, [FromBody] SaveBreweryDto breweryDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var brewery = await _breweryService.GetBrewery(id);
+            if (brewery == null)
+            {
+                return NotFound();
+            }
+
+            var mappedBrewery = _mapper.Map(breweryDto, brewery);
+
+            if (!await _breweryService.UpdateBrewery(id, mappedBrewery))
+            {
+                return BadRequest("Wystąpił problem podczas modyfikacji browaru");
+            }
+
+            return Ok();
+
+        }
     }
 }

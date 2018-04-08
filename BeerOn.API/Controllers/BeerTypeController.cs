@@ -74,6 +74,30 @@ namespace BeerOn.API.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateBeerType(int id, [FromBody] SaveBeerTypeDto beerTypeDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var beerType = await _beerTypeService.GetBeerType(id);
+            if (beerType == null)
+            {
+                return NotFound();
+            }
+
+            var mappedBeerType = _mapper.Map(beerTypeDto, beerType);
+
+            if (!await _beerTypeService.UpdateBeerType(id, mappedBeerType))
+            {
+                return BadRequest("Wystąpił problem podczas modyfikacji typu piwa");
+            }
+
+            return Ok();
 
         }
 

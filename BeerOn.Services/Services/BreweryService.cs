@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using BeerOn.Data.DbModels;
+using BeerOn.Data.ModelsDto;
 using BeerOn.Repo.Interfaces;
 using BeerOn.Services.Interfaces;
 
@@ -42,6 +43,22 @@ namespace BeerOn.Services.Services
             return await _breweryRepository.GetAllAsyn();
         }
 
-        
+        public async Task<bool> RemoveBrewery(Brewery brewery)
+        {
+            if (await _breweryRepository.DeleteAsyn(brewery) == 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<bool> UpdateBrewery(int id, Brewery brewery)
+        {
+            if (await _breweryRepository.UpdateAsyn(brewery, id) == null)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

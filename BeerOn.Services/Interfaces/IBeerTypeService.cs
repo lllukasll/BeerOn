@@ -10,7 +10,8 @@ namespace BeerOn.Services.Interfaces
     {
         Task<BeerType> GetBeerType(int id);
         Task<IEnumerable<BeerType>> GetAll();
-        Task<bool> AddBeerType(BeerType brewery);
+        Task<bool> AddBeerType(BeerType beerType);
         Task<bool> RemoveBeerType(BeerType beerType);
+        Task<bool> UpdateBeerType(int id,BeerType beerType);
     }
 }
