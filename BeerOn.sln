@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerOn", "BeerOn\BeerOn.csproj", "{641840A4-1602-4600-8420-14DEC54CD2CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerOn.API", "BeerOn.API\BeerOn.API.csproj", "{2F1C7EF5-52E3-4958-A6B0-756EB7768A50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerOn.Repo", "BeerOn.Repo\BeerOn.Repo.csproj", "{D9CDF520-019A-482D-9402-EB1FD4DF4018}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerOn.Services", "BeerOn.Services\BeerOn.Services.csproj", "{C2719200-1B64-4BA2-A8E1-95E0B46CDA85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerOn.Data", "BeerOn.Data\BeerOn.Data.csproj", "{E7EC9E15-3634-4071-B267-114FEB206DCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{641840A4-1602-4600-8420-14DEC54CD2CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{641840A4-1602-4600-8420-14DEC54CD2CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{641840A4-1602-4600-8420-14DEC54CD2CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{641840A4-1602-4600-8420-14DEC54CD2CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F1C7EF5-52E3-4958-A6B0-756EB7768A50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F1C7EF5-52E3-4958-A6B0-756EB7768A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F1C7EF5-52E3-4958-A6B0-756EB7768A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F1C7EF5-52E3-4958-A6B0-756EB7768A50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9CDF520-019A-482D-9402-EB1FD4DF4018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9CDF520-019A-482D-9402-EB1FD4DF4018}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9CDF520-019A-482D-9402-EB1FD4DF4018}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9CDF520-019A-482D-9402-EB1FD4DF4018}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2719200-1B64-4BA2-A8E1-95E0B46CDA85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2719200-1B64-4BA2-A8E1-95E0B46CDA85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2719200-1B64-4BA2-A8E1-95E0B46CDA85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2719200-1B64-4BA2-A8E1-95E0B46CDA85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7EC9E15-3634-4071-B267-114FEB206DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7EC9E15-3634-4071-B267-114FEB206DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7EC9E15-3634-4071-B267-114FEB206DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7EC9E15-3634-4071-B267-114FEB206DCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
