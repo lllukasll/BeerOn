@@ -20,6 +20,7 @@ namespace BeerOn.Repo
         public DbSet<Beer> Beers { get; set; }
         public DbSet<BeerType> BeerTypes { get; set; }
         public DbSet<Brewery> Breweries { get; set; }
+        public DbSet<BeerRating> BeerRatings { get; set; }
 
     }
 }

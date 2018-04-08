@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BeerOn.Data.DbModels;
 using BeerOn.Data.ModelsDto;
+using BeerOn.Data.ModelsDto.Beer;
 using BeerOn.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -100,5 +101,28 @@ namespace BeerOn.API.Controllers
             return Ok();
 
         }
+
+        //Beer Rating
+        //[HttpPost("{beerId}/rate")]
+        //public async Task<IActionResult> AddBeerRating(int beerId, [FromBody] SaveBeerRatingDto beerRatingDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    if (_beerService.GetBeer(beerId) == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var mappedBeerRating = _mapper.Map<SaveBeerRatingDto, BeerRating>(beerRatingDto);
+        //    if (!await _beerService.AddBeerRating(mappedBeerRating))
+        //    {
+        //        return BadRequest("Wystąpił problem podczas dodawania oceny");
+        //    }
+
+        //    return Ok();
+        //}
     }
 }
