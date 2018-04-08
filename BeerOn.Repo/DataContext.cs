@@ -17,5 +17,9 @@ namespace BeerOn.Repo
         public DbSet<ConfirmationKey> ConfirmationKeys { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Beer> Beers { get; set; }
+        public DbSet<BeerType> BeerTypes { get; set; }
+        public DbSet<Brewery> Breweries { get; set; }
+
     }
 }

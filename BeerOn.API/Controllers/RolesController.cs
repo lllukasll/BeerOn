@@ -1,55 +1,57 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Threading.Tasks;
-//using BeerOn.Data.DbModels;
-//using BeerOn.Data.ModelsDto;
-//using BeerOn.Services.Interfaces;
-//using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using BeerOn.Data.DbModels;
+using BeerOn.Data.ModelsDto;
+using BeerOn.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
-//namespace BeerOn.API.Controllers
-//{
-//    public class RolesController : Controller
-//    {
-//        private readonly IRoleService _roleService;
-//        private readonly IMapper _mapper;
+namespace BeerOn.API.Controllers
+{
+    [Route("api/roles")]
+    public class RolesController : Controller
+    {
+        private readonly IRoleService _roleService;
+        private readonly IMapper _mapper;
 
-//        public RolesController(IRoleService roleService, IMapper mapper)
-//        {
-//            _roleService = roleService;
-//            _mapper = mapper;
-//        }
+        public RolesController(IRoleService roleService, IMapper mapper)
+        {
+            _roleService = roleService;
+            _mapper = mapper;
+        }
 
-//        [HttpGet]
-//        public IActionResult GetAll()
-//        {
-//            var roles = _roleService.GetAll();
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var roles = _roleService.GetAll();
 
-//            return Ok(roles);
-//        }
+            return Ok(roles);
+        }
 
-//        [HttpGet("{id}")]
-//        public IActionResult Get(long id)
-//        {
-//            var role = _roleService.GetRole(id);
+        [HttpGet("{id}")]
+        public IActionResult Get(long id)
+        {
+            var role = _roleService.GetRole(id);
 
-//            if (role == null)
-//                return BadRequest();
+            if (role == null)
+                return BadRequest();
 
-//            return Ok(role);
-//        }
+            return Ok(role);
+        }
 
-//        [HttpPost]
-//        public IActionResult Create([FromBody]RoleDto role)
-//        {
-//            if (role == null)
-//                return BadRequest();
+        [HttpPost]
+        public IActionResult Create([FromBody]RoleDto role)
+        {
+            if (role == null)
+                return BadRequest();
 
-//            var roleMapped = _mapper.Map<RoleDto, Role>(role);
+            var roleMapped = _mapper.Map<RoleDto, Role>(role);
 
-//            _roleService.InsertRole(roleMapped);
+            _roleService.InsertRole(roleMapped);
 
-//            return Ok(roleMapped);
-//        }
-//    }
-//}
+            return Ok(roleMapped);
+        }
+    }
+}

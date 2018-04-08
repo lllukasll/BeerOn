@@ -11,9 +11,10 @@ using System;
 namespace BeerOn.Repo.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20180408115625_Added_Brewery_BeerType_Changed_BeerDataModel_V2")]
+    partial class Added_Brewery_BeerType_Changed_BeerDataModel_V2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -30,6 +30,15 @@ namespace BeerOn.API.Helpers
             CreateMap<GetUserDataDto, User>();
             CreateMap<User, GetUserDataDto>();
 
+            CreateMap<Brewery, GetBreweryDto>();
+            CreateMap<GetBreweryDto, Brewery>();
+
+            CreateMap<Brewery, SaveBreweryDto>();
+            CreateMap<SaveBreweryDto, Brewery>();
+
+            CreateMap<BeerType, SaveBeerTypeDto>();
+            CreateMap<SaveBeerTypeDto, BeerType>();
+
         }
     }
 }

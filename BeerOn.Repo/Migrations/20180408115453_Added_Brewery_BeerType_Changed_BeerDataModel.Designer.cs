@@ -11,64 +11,15 @@ using System;
 namespace BeerOn.Repo.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20180408115453_Added_Brewery_BeerType_Changed_BeerDataModel")]
+    partial class Added_Brewery_BeerType_Changed_BeerDataModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("BeerOn.Data.DbModels.Beer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AvatarUrl");
-
-                    b.Property<int>("BeerTypeId");
-
-                    b.Property<int>("BreweryId");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Percentage");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BeerTypeId");
-
-                    b.HasIndex("BreweryId");
-
-                    b.ToTable("Beers");
-                });
-
-            modelBuilder.Entity("BeerOn.Data.DbModels.BeerType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BeerTypes");
-                });
-
-            modelBuilder.Entity("BeerOn.Data.DbModels.Brewery", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Breweries");
-                });
 
             modelBuilder.Entity("BeerOn.Data.DbModels.ConfirmationKey", b =>
                 {
@@ -156,19 +107,6 @@ namespace BeerOn.Repo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserTokens");
-                });
-
-            modelBuilder.Entity("BeerOn.Data.DbModels.Beer", b =>
-                {
-                    b.HasOne("BeerOn.Data.DbModels.BeerType", "BeerType")
-                        .WithMany()
-                        .HasForeignKey("BeerTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("BeerOn.Data.DbModels.Brewery", "Brewery")
-                        .WithMany()
-                        .HasForeignKey("BreweryId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("BeerOn.Data.DbModels.ConfirmationKey", b =>
