@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BeerOn.Data.DbModels;
 using BeerOn.Repo.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Extensions.Internal;
 
 namespace BeerOn.Repo.Repositories
 {
@@ -23,9 +19,9 @@ namespace BeerOn.Repo.Repositories
                 .SingleOrDefaultAsync(g => g.Id == id);
         }
 
-        public async Task<List<Beer>> GetAllBeers()
+        public async Task<IEnumerable<Beer>> GetAllBeers()
         {
-            return await _context.Beers.Include(g => g.Brewery).Include(gc => gc.BeerType).ToListAsync(); //Działa nie wiem czemu podkreślone
+            return await _context.Beers.Include(g => g.Brewery).Include(gc => gc.BeerType).ToListAsync();
         }
         
     }

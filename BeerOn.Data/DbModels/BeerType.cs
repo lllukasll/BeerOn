@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BeerOn.Data.DbModels
+﻿namespace BeerOn.Data.DbModels
 {
     public class BeerType : BaseEntity
     {

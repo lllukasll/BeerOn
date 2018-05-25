@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using BeerOn.Data.DbModels;
 using BeerOn.Data.ModelsDto;
+using BeerOn.Data.ModelsDto.Beer;
+using BeerOn.Data.ModelsDto.Brewery;
 
 namespace BeerOn.API.Helpers
 {
@@ -46,7 +44,7 @@ namespace BeerOn.API.Helpers
 
             CreateMap<Beer, GetBeerDto>();
             CreateMap<GetBeerDto, Beer>();
-
+            CreateMap<UploadAvatarDto, Beer>();
         }
     }
 }

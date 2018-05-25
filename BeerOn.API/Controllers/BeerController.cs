@@ -1,46 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.IO;
 using System.Threading.Tasks;
-using AutoMapper;
-using BeerOn.Data.DbModels;
-using BeerOn.Data.ModelsDto;
+using BeerOn.API.Helpers;
 using BeerOn.Data.ModelsDto.Beer;
 using BeerOn.Services.Interfaces;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace BeerOn.API.Controllers
 {
     [Route("api/beer")]
     public class BeerController : Controller
     {
-        private readonly IMapper _mapper;
-        private readonly IBeerService _beerService;
+        private readonly IHostingEnvironment _host;
+        private readonly IBeerService _service;
+        private readonly PhotoSettings _photoSettings;
 
-        public BeerController(IMapper mapper, IBeerService beerService)
+        public BeerController(IOptions<PhotoSettings> options, IHostingEnvironment host, IBeerService beerService)
         {
-            _mapper = mapper;
-            _beerService = beerService;
+            _host = host;
+            _service = beerService;
+            _photoSettings = options.Value;
         }
+        [HttpPost]
+        [Route("{id}/photo")]
+        public async Task<IActionResult> Upload(int id, IFormFile file)
+        {
+            if (await _service.IsBeerExist(id) == false) return NotFound();
+          
+            if (file == null) return BadRequest("Brak Pliku");
+            if (file.Length == 0) return BadRequest("Pusty plik");
+            if (file.Length > _photoSettings.MaxBytes) return BadRequest("Za duży plik");
+            if (!_photoSettings.IsSupported(file.FileName)) return BadRequest("Nieprawidłowy typ");
 
-        [HttpGet("{id}")]
+            var uploadsFolderPath = Path.Combine(_host.WebRootPath, "uploads");
+            await _service.UploadPhoto(id, file, uploadsFolderPath);
+            return Ok();
+        }
+        [HttpGet("{id}",Name = "GetBeer")]
         public async Task<IActionResult> GetBeer(int id)
         {
-            var beer = await _beerService.GetBeer(id);
+            var beer = await _service.GetBeerAsync(id);
             if (beer == null)
             {
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<GetBeerDto>(beer));
+            return Ok(beer);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var beers = await _beerService.GetAll();
-
-            return Ok(_mapper.Map<IEnumerable<GetBeerDto>>(beers));
+            var beers = await _service.GetAllAsync();
+            if (beers == null)
+            {
+                return NotFound();
+            }
+            return Ok(beers);
         }
 
         [HttpPost]
@@ -51,28 +69,23 @@ namespace BeerOn.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var beer = _mapper.Map<SaveBeerDto, Beer>(beerDto);
-            if (!await _beerService.AddBeer(beer))
-            {
-                return BadRequest("Wystąpił problem podczas dodawania piwa");
-            }
 
-            return Ok();
+            var result = await _service.AddBeerAsync(beerDto);
+
+            return CreatedAtRoute("GetBeer", new {id = result.Id}, result);
         }
-
+           
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBeer(int id)
         {
-            var beer = await _beerService.GetBeer(id);
-            if (beer == null)
+            
+            if (!await _service.IsBeerExist(id))
             {
                 return NotFound();
             }
 
-            if (!await _beerService.RemoveBeer(beer))
-            {
-                return BadRequest("Wystąpił problem podczas usuwania piwa");
-            }
+            await _service.RemoveBeer(id);
+           
 
             return Ok();
         }
@@ -85,15 +98,15 @@ namespace BeerOn.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var beer = await _beerService.GetBeer(id);
-            if (beer == null)
+           
+            if (!await _service.IsBeerExist(id))
             {
                 return NotFound();
             }
 
-            var mappedBeer = _mapper.Map(beerDto, beer);
+           
 
-            if (!await _beerService.UpdateBeer(id, mappedBeer))
+            if (!await _service.UpdateBeer(id, beerDto))
             {
                 return BadRequest("Wystąpił problem podczas modyfikacji typu piwa");
             }

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using BeerOn.Data.DbModels;
 using BeerOn.Data.ModelsDto;
+using BeerOn.Data.ModelsDto.Brewery;
 using BeerOn.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

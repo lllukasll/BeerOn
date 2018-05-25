@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using BeerOn.Data.DbModels;
+﻿using BeerOn.Data.DbModels;
 
-namespace BeerOn.Data.ModelsDto
+namespace BeerOn.Data.ModelsDto.Beer
 {
     public class GetBeerDto
     {
@@ -14,7 +11,7 @@ namespace BeerOn.Data.ModelsDto
         public string AvatarUrl { get; set; }
 
         //public int BreweryId { get; set; }
-        public Brewery Brewery { get; set; }
+        public DbModels.Brewery Brewery { get; set; }
 
         //public int BeerTypeId { get; set; }
         public BeerType BeerType { get; set; }

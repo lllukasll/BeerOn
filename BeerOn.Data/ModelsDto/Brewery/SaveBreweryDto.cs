@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace BeerOn.Data.ModelsDto
+namespace BeerOn.Data.ModelsDto.Brewery
 {
     public class SaveBreweryDto
     {

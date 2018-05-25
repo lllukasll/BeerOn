@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using BeerOn.Data.DbModels;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace BeerOn.Data.ModelsDto
+namespace BeerOn.Data.ModelsDto.Beer
 {
     public class SaveBeerDto
     {
