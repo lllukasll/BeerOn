@@ -2,6 +2,7 @@
 using BeerOn.API.Helpers;
 using BeerOn.Data.DbModels;
 using BeerOn.Data.ModelsDto;
+using BeerOn.Data.ModelsDto.User;
 using BeerOn.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

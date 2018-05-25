@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BeerOn.Data.ModelsDto
+﻿namespace BeerOn.Data.ModelsDto.User
 {
     public class GetUserDataDto
     {

@@ -6,6 +6,9 @@
         public int Smell { get; set; }
         public int Appearance { get; set; }
 
+        public int BeerId { get; set; }
+        public Beer Beer { get; set; }
+
         public int UserId { get; set; }
         public User User { get; set; }
     }

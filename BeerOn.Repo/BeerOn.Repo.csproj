@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180525153614_ChangeRating.cs" />
+    <Compile Remove="Migrations\20180525154701_ChangeRating.cs" />
+    <Compile Remove="Migrations\20180525155530_AddComment.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
   </ItemGroup>
 

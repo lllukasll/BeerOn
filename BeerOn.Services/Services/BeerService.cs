@@ -9,6 +9,7 @@ using BeerOn.Data.ModelsDto.Beer;
 using BeerOn.Repo.Interfaces;
 using BeerOn.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BeerOn.Services.Services
 {
@@ -23,16 +24,18 @@ namespace BeerOn.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<GetBeerDto> AddBeerAsync(SaveBeerDto beerDto)
+        public async Task<GetBeerDto> AddBeerAsync(SaveBeerDto beerDto,int userLogged)
         {
             var beer = _mapper.Map<SaveBeerDto, Beer>(beerDto);
+            beer.CreateDateTime=DateTime.Now;
+            beer.Confirmation = false;
+            beer.UserId = userLogged;
             await _beerRepository.AddAsyn(beer);
             await _beerRepository.SaveAsync();
 
             return await GetBeerAsync(beer.Id);
-
         }
-
+        
         public async Task<GetBeerDto> GetBeerAsync(int id)
         {
            
@@ -93,5 +96,13 @@ namespace BeerOn.Services.Services
             _mapper.Map(avatar, beer);
             await _beerRepository.SaveAsync();
         }
+
+        public async Task ConfirmBeerAsync(int id)
+        {
+            var beer = await _beerRepository.GetAsync(id);
+            beer.Confirmation = true;
+            await _beerRepository.SaveAsync();
+        }
     }
 }
+

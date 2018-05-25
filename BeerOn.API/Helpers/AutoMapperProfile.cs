@@ -3,6 +3,7 @@ using BeerOn.Data.DbModels;
 using BeerOn.Data.ModelsDto;
 using BeerOn.Data.ModelsDto.Beer;
 using BeerOn.Data.ModelsDto.Brewery;
+using BeerOn.Data.ModelsDto.User;
 
 namespace BeerOn.API.Helpers
 {

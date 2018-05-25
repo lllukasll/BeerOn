@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using BeerOn.API.Helpers;
 using BeerOn.Data.ModelsDto.Beer;
 using BeerOn.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -49,7 +50,13 @@ namespace BeerOn.API.Controllers
 
             return Ok(beer);
         }
-
+        [HttpPost("{id}/confirm")]
+        public async Task<IActionResult> ConfirmBeer(int id)
+        {
+            if (await _service.IsBeerExist(id) == false) return NotFound();
+            await _service.ConfirmBeerAsync(id);
+            return Ok();
+        }
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -60,7 +67,7 @@ namespace BeerOn.API.Controllers
             }
             return Ok(beers);
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddBeer([FromBody] SaveBeerDto beerDto)
         {
@@ -69,8 +76,9 @@ namespace BeerOn.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            var userLogged = int.Parse(HttpContext.User.Identity.Name);
 
-            var result = await _service.AddBeerAsync(beerDto);
+            var result = await _service.AddBeerAsync(beerDto,userLogged);
 
             return CreatedAtRoute("GetBeer", new {id = result.Id}, result);
         }
@@ -78,14 +86,12 @@ namespace BeerOn.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBeer(int id)
         {
-            
             if (!await _service.IsBeerExist(id))
             {
                 return NotFound();
             }
 
             await _service.RemoveBeer(id);
-           
 
             return Ok();
         }
@@ -93,6 +99,7 @@ namespace BeerOn.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBeer(int id, [FromBody] SaveBeerDto beerDto)
         {
+           
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
