@@ -3,6 +3,7 @@ using BeerOn.Data.DbModels;
 using BeerOn.Data.ModelsDto;
 using BeerOn.Data.ModelsDto.Beer;
 using BeerOn.Data.ModelsDto.Brewery;
+using BeerOn.Data.ModelsDto.Comment;
 using BeerOn.Data.ModelsDto.User;
 
 namespace BeerOn.API.Helpers
@@ -46,6 +47,10 @@ namespace BeerOn.API.Helpers
             CreateMap<Beer, GetBeerDto>();
             CreateMap<GetBeerDto, Beer>();
             CreateMap<UploadAvatarDto, Beer>();
+
+            //comment
+            CreateMap<Comment, CommentDto>();
+            CreateMap<SaveCommentDto, Comment>();
         }
     }
 }

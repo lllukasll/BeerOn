@@ -10,7 +10,7 @@ namespace BeerOn.Data.DbModels
         public string AvatarUrl { get; set; }
         public DateTime CreateDateTime { get; set; }
 
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public User User { get; set; }
 
         public bool Confirmation { get; set; }

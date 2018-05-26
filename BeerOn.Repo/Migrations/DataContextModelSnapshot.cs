@@ -41,7 +41,7 @@ namespace BeerOn.Repo.Migrations
 
                     b.Property<string>("Percentage");
 
-                    b.Property<int>("UserId");
+                    b.Property<int?>("UserId");
 
                     b.HasKey("Id");
 
@@ -76,6 +76,32 @@ namespace BeerOn.Repo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Breweries");
+                });
+
+            modelBuilder.Entity("BeerOn.Data.DbModels.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("BeerId");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(500);
+
+                    b.Property<DateTime>("CreateDateTime");
+
+                    b.Property<DateTime>("UpdateDateTime");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BeerId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("BeerOn.Data.DbModels.ConfirmationKey", b =>
@@ -176,6 +202,18 @@ namespace BeerOn.Repo.Migrations
                     b.HasOne("BeerOn.Data.DbModels.Brewery", "Brewery")
                         .WithMany()
                         .HasForeignKey("BreweryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BeerOn.Data.DbModels.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("BeerOn.Data.DbModels.Comment", b =>
+                {
+                    b.HasOne("BeerOn.Data.DbModels.Beer", "Beer")
+                        .WithMany()
+                        .HasForeignKey("BeerId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("BeerOn.Data.DbModels.User", "User")

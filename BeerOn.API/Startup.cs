@@ -66,6 +66,8 @@ namespace BeerOn.API
             services.AddScoped<IBeerTypeService, BeerTypeService>();
             services.AddScoped<IBeerService, BeerService>();
             services.AddScoped<IBeerRepository, BeerRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<ICommentService, CommentService>();
 
         }
 

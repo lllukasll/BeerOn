@@ -9,7 +9,6 @@ using BeerOn.Data.ModelsDto.Beer;
 using BeerOn.Repo.Interfaces;
 using BeerOn.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BeerOn.Services.Services
 {

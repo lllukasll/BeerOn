@@ -8,6 +8,9 @@
     <Compile Remove="Migrations\20180525153614_ChangeRating.cs" />
     <Compile Remove="Migrations\20180525154701_ChangeRating.cs" />
     <Compile Remove="Migrations\20180525155530_AddComment.cs" />
+    <Compile Remove="Migrations\20180525161654_AddCommentAndBeerConfirmation.cs" />
+    <Compile Remove="Migrations\20180526080108_AddCommentandChangeRating.cs" />
+    <Compile Remove="Migrations\20180526084745_AddCommentandChangeRating.cs" />
   </ItemGroup>
 
   <ItemGroup>

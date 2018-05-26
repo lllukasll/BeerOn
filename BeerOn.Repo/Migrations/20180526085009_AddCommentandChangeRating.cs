@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BeerOn.Repo.Migrations
 {
-    public partial class AddCommentAndBeerConfirmation : Migration
+    public partial class AddCommentandChangeRating : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,12 +27,50 @@ namespace BeerOn.Repo.Migrations
             migrationBuilder.AddColumn<int>(
                 name: "UserId",
                 table: "Beers",
-                nullable: false,
-                defaultValue: 0);
+                nullable: true);
+
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BeerId = table.Column<int>(nullable: false),
+                    Content = table.Column<string>(maxLength: 500, nullable: false),
+                    CreateDateTime = table.Column<DateTime>(nullable: false),
+                    UpdateDateTime = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_Beers_BeerId",
+                        column: x => x.BeerId,
+                        principalTable: "Beers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comments_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Beers_UserId",
                 table: "Beers",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_BeerId",
+                table: "Comments",
+                column: "BeerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_UserId",
+                table: "Comments",
                 column: "UserId");
 
             migrationBuilder.AddForeignKey(
@@ -41,7 +79,7 @@ namespace BeerOn.Repo.Migrations
                 column: "UserId",
                 principalTable: "Users",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -49,6 +87,9 @@ namespace BeerOn.Repo.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Beers_Users_UserId",
                 table: "Beers");
+
+            migrationBuilder.DropTable(
+                name: "Comments");
 
             migrationBuilder.DropIndex(
                 name: "IX_Beers_UserId",
