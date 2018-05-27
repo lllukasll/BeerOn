@@ -37,15 +37,17 @@ namespace BeerOn.Services.Services
             return result;
         }
 
-        public async Task<IEnumerable<CommentDto>> GetCommentsAsync()
+        public async Task<IEnumerable<CommentDto>> GetCommentsAsync(int beerId)
         {
             var comment = await _repository
                 .GetAllIncluding(a => a.User)
                 .OrderByDescending(d=>d.CreateDateTime)
+                .Where(c=>c.BeerId == beerId)
                 .ToListAsync();
             var result = _mapper.Map<IEnumerable<CommentDto>>(comment);
             return result;
         }
+
         public async Task<CommentDto> CreateCommentAsync(int userLogged, int beerId,SaveCommentDto commentDto)
         {
             var comment = _mapper.Map<SaveCommentDto, Comment>(commentDto);

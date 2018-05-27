@@ -40,7 +40,7 @@ namespace BeerOn.API.Controllers
                 return NotFound();
             }
 
-            var result = await _service.GetCommentsAsync();
+            var result = await _service.GetCommentsAsync(beerId);
             return Ok(result);
         }
 
@@ -59,6 +59,7 @@ namespace BeerOn.API.Controllers
 
             return CreatedAtRoute("GetComment", new {beerId, commentId = result.Id}, result); 
         }
+
         [Authorize]
         [HttpPut("{commentId}")]
         public async Task<IActionResult> UpdateComment(int beerId,int commentId, [FromBody] SaveCommentDto commentDto)

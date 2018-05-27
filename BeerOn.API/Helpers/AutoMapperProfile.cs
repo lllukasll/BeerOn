@@ -51,6 +51,9 @@ namespace BeerOn.API.Helpers
             //comment
             CreateMap<Comment, CommentDto>();
             CreateMap<SaveCommentDto, Comment>();
+
+            CreateMap<BeerRating, GetBeerRatingDto>();
+            CreateMap<AddBeerRatingDto, BeerRating>();
         }
     }
 }

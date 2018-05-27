@@ -68,7 +68,8 @@ namespace BeerOn.API
             services.AddScoped<IBeerRepository, BeerRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ICommentService, CommentService>();
-
+            services.AddScoped<IRatingService, RaitingService>();
+            services.AddScoped<IRatingRepository, RatingRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -21,5 +21,6 @@ namespace BeerOn.Repo
         public DbSet<BeerType> BeerTypes { get; set; }
         public DbSet<Brewery> Breweries { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<BeerRating> BeerRatings { get; set; }
     }
 }
