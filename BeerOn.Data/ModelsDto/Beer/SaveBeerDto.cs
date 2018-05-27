@@ -14,6 +14,7 @@ namespace BeerOn.Data.ModelsDto.Beer
         public string Percentage { get; set; }
 
         public string AvatarUrl { get; set; }
+        public int AverageRating { get; set; }
 
         [Required]
         public int BreweryId { get; set; }

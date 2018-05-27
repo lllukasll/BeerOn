@@ -8,5 +8,6 @@ namespace BeerOn.Repo.Interfaces
     {
         Task<Beer> GetBeer(int id);
         Task<IEnumerable<Beer>> GetAllBeers();
+        Task<IEnumerable<Beer>> GetHighestRankingBeersAsync();
     }
 }

@@ -11,10 +11,12 @@ namespace BeerOn.API.Controllers
     public class RatingController : Controller
     {
         private readonly IRatingService _service;
+        private readonly IBeerService _beerService;
 
-        public RatingController(IRatingService service)
+        public RatingController(IRatingService service, IBeerService beerService)
         {
             _service = service;
+            _beerService = beerService;
         }
 
         [HttpGet]
@@ -60,6 +62,31 @@ namespace BeerOn.API.Controllers
             {
                 var result = await _service.AddBeerRatingAsync(userLogged, beerId, ratingDto);
 
+                var beer = await _beerService.GetBeerAsync(beerId);
+
+                var updatedBeer = new SaveBeerDto();
+
+                updatedBeer.Name = beer.Name;
+                updatedBeer.AvatarUrl = beer.AvatarUrl;
+                updatedBeer.BeerTypeId = beer.BeerType.Id;
+                updatedBeer.BreweryId = beer.Brewery.Id;
+                updatedBeer.Description = beer.Description;
+                updatedBeer.Percentage = beer.Percentage;
+                if (beer.AverageRating == 0)
+                {
+                    updatedBeer.AverageRating = (beer.AverageRating + ratingDto.Average);
+                }
+                else
+                {
+                    updatedBeer.AverageRating = (beer.AverageRating + ratingDto.Average ) / 2;
+                }
+                
+
+                var updateResult = await _beerService.UpdateBeer(beerId, updatedBeer);
+
+                if (!updateResult)
+                    return BadRequest("Niepowodzenie :(");
+
                 return Ok(result);
             }
 
@@ -74,7 +101,34 @@ namespace BeerOn.API.Controllers
             {
                 return NotFound();
             }
-            await _service.UpdateRatingAsync(ratingId, ratingDto);
+            var beerId = await _service.UpdateRatingAsync(ratingId, ratingDto);
+
+            GetBeerRatingDto beerRating = await _service.GetBeerRatingAsync(beerId);
+
+            var beer = await _beerService.GetBeerAsync(beerId);
+
+            var updatedBeer = new SaveBeerDto();
+
+            updatedBeer.Name = beer.Name;
+            updatedBeer.AvatarUrl = beer.AvatarUrl;
+            updatedBeer.BeerTypeId = beer.BeerType.Id;
+            updatedBeer.BreweryId = beer.Brewery.Id;
+            updatedBeer.Description = beer.Description;
+            updatedBeer.Percentage = beer.Percentage;
+            if (beer.AverageRating == 0)
+            {
+                updatedBeer.AverageRating = beerRating.Average;
+            }
+            else
+            {
+                updatedBeer.AverageRating = beerRating.Average;
+            }
+
+
+            var updateResult = await _beerService.UpdateBeer(beerId, updatedBeer);
+
+            if (!updateResult)
+                return BadRequest("Niepowodzenie :(");
 
             return Ok();
         }

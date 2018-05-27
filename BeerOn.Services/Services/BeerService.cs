@@ -51,6 +51,13 @@ namespace BeerOn.Services.Services
 
         }
 
+        public async Task<IEnumerable<GetBeerDto>> GetHighestRankingBeersAsync()
+        {
+            var beers = await _beerRepository.GetHighestRankingBeersAsync();
+            var result = _mapper.Map<IEnumerable<GetBeerDto>>(beers);
+            return result;
+        }
+
         public async Task RemoveBeer(int id)
         {
             var beer = await _beerRepository.GetAsync(id);

@@ -14,6 +14,7 @@ namespace BeerOn.Data.DbModels
         public User User { get; set; }
 
         public bool Confirmation { get; set; }
+        public int AverageRating { get; set; }
 
         public int BreweryId { get; set; }
         public Brewery Brewery { get; set; }

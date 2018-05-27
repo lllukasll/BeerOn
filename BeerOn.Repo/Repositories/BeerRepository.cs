@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BeerOn.Data.DbModels;
 using BeerOn.Repo.Interfaces;
@@ -23,6 +24,12 @@ namespace BeerOn.Repo.Repositories
         {
             return await _context.Beers.Include(g => g.Brewery).Include(gc => gc.BeerType).ToListAsync();
         }
-        
+
+        public async Task<IEnumerable<Beer>> GetHighestRankingBeersAsync()
+        {
+            return await _context.Beers.Include(g => g.Brewery).Include(gc => gc.BeerType)
+                .OrderByDescending(c => c.AverageRating).Take(10).ToListAsync();
+        }
+
     }
 }

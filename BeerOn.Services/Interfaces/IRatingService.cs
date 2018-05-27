@@ -11,6 +11,6 @@ namespace BeerOn.Services.Interfaces
         Task<GetBeerRatingDto> AddBeerRatingAsync(int userLogged, int beerId, AddBeerRatingDto beerRatingDto);
         Task<GetBeerRatingDto> GetBeerRaitingForUserAsync(int userLogged, int beerId);
         Task<bool> IfExistRating(int ratingId);
-        Task UpdateRatingAsync(int ratingId, AddBeerRatingDto ratingDto);
+        Task<int> UpdateRatingAsync(int ratingId, AddBeerRatingDto ratingDto);
     }
 }

@@ -53,7 +53,7 @@ namespace BeerOn.Services.Services
             rating.UserId = userLogged;
             await _repository.AddAsyn(rating);
             await _repository.SaveAsync();
-
+          
             var result = await GetBeerRaitingForUserAsync(userLogged, beerId);
 
             return result;
@@ -104,11 +104,13 @@ namespace BeerOn.Services.Services
             return rating != null;
         }
 
-        public async Task UpdateRatingAsync(int ratingId, AddBeerRatingDto ratingDto)
+        public async Task<int> UpdateRatingAsync(int ratingId, AddBeerRatingDto ratingDto)
         {
             var rating = await _repository.GetAsync(ratingId);
             _mapper.Map(ratingDto, rating);
             await _repository.SaveAsync();
+
+            return rating.BeerId;
         }
     }
 }

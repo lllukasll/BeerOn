@@ -67,6 +67,18 @@ namespace BeerOn.API.Controllers
             }
             return Ok(beers);
         }
+
+        [HttpGet("best")]
+        public async Task<IActionResult> GetHighestRankingBeers()
+        {
+            var beers = await _service.GetHighestRankingBeersAsync();
+            if (beers == null)
+            {
+                return NotFound();
+            }
+            return Ok(beers);
+        }
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddBeer([FromBody] SaveBeerDto beerDto)

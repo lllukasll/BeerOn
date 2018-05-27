@@ -9,6 +9,7 @@ namespace BeerOn.Data.ModelsDto.Beer
         public string Description { get; set; }
         public string Percentage { get; set; }
         public string AvatarUrl { get; set; }
+        public int AverageRating { get; set; }
 
         //public int BreweryId { get; set; }
         public DbModels.Brewery Brewery { get; set; }
