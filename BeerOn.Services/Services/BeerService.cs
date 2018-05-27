@@ -58,6 +58,13 @@ namespace BeerOn.Services.Services
             return result;
         }
 
+        public async Task<IEnumerable<GetBeerDto>> GetBeersAddedByUser(int beerId)
+        {
+            var beers = await _beerRepository.GetBeersAddedByUser(beerId);
+            var result = _mapper.Map<IEnumerable<GetBeerDto>>(beers);
+            return result;
+        }
+
         public async Task RemoveBeer(int id)
         {
             var beer = await _beerRepository.GetAsync(id);

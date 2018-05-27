@@ -80,6 +80,19 @@ namespace BeerOn.API.Controllers
         }
 
         [Authorize]
+        [HttpGet("user")]
+        public async Task<IActionResult> GetBeersAddedByUser()
+        {
+            var userLogged = int.Parse(HttpContext.User.Identity.Name);
+            var beers = await _service.GetBeersAddedByUser(userLogged);
+            if (beers == null)
+            {
+                return NotFound();
+            }
+            return Ok(beers);
+        }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddBeer([FromBody] SaveBeerDto beerDto)
         {

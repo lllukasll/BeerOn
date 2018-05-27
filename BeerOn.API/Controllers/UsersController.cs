@@ -174,17 +174,19 @@ namespace BeerOn.API.Controllers
             return Ok();
         }
 
-        [HttpPost("{userId}/changePassword")]
-        public IActionResult ChangePassword(int userId, [FromBody]ChangePasswordDto changePasswordDto)
+        [HttpPost("changePassword")]
+        public IActionResult ChangePassword([FromBody]ChangePasswordDto changePasswordDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (_userService.GetUserById(userId) == null)
+            var userLogged = int.Parse(HttpContext.User.Identity.Name);
+
+            if (_userService.GetUserById(userLogged) == null)
             {
-                return BadRequest("Brak użytkownika o id : " + userId);
+                return BadRequest("Brak użytkownika o id : " + userLogged);
             }
 
             if (changePasswordDto.NewPassword != changePasswordDto.NewPassword2)
@@ -192,12 +194,12 @@ namespace BeerOn.API.Controllers
                 return BadRequest("Hasła nie zgadzają się");
             }
 
-            if (_userService.CheckPassword(changePasswordDto.OldPassword, userId))
+            if (_userService.CheckPassword(changePasswordDto.OldPassword, userLogged))
             {
                 return BadRequest("Złe haslo");
             }
 
-            if (_userService.ChangePassword(userId, changePasswordDto))
+            if (_userService.ChangePassword(userLogged, changePasswordDto))
             {
                 return Ok();
             }

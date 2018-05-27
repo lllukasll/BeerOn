@@ -31,5 +31,11 @@ namespace BeerOn.Repo.Repositories
                 .OrderByDescending(c => c.AverageRating).Take(10).ToListAsync();
         }
 
+        public async Task<IEnumerable<Beer>> GetBeersAddedByUser(int userId)
+        {
+            return await _context.Beers.Include(g => g.Brewery).Include(gc => gc.BeerType)
+                .Where(c => c.UserId == userId).ToListAsync();
+        }
+
     }
 }

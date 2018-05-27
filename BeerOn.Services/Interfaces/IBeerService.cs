@@ -11,6 +11,7 @@ namespace BeerOn.Services.Interfaces
         Task<GetBeerDto> GetBeerAsync(int id);
         Task<IEnumerable<GetBeerDto>> GetAllAsync();
         Task<IEnumerable<GetBeerDto>> GetHighestRankingBeersAsync();
+        Task<IEnumerable<GetBeerDto>> GetBeersAddedByUser(int beerId);
         Task<GetBeerDto> AddBeerAsync(SaveBeerDto beerDto, int userLogged);
         Task RemoveBeer(int id);
         Task<bool> UpdateBeer(int id, SaveBeerDto beerDto);
